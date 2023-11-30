@@ -7,6 +7,7 @@ import java.util.*;
 public class SumOfDigits {
     private static final int LIST_SIZE = Integer.MAX_VALUE;
     private static final int SET_OF_TESTS = 500;
+    private static final short SUM_MULTIPLIER_FACTOR = 2;
     private static Instant start;
 
     public static void main(String[] args) {
@@ -42,7 +43,7 @@ public class SumOfDigits {
 
 
     static int generateCandidate(int currentNumber) {
-        int sumOfDigitsDoubled = sumOfDigits(currentNumber) * 2;
+        int sumOfDigitsDoubled = sumOfDigits(currentNumber) * SUM_MULTIPLIER_FACTOR;
 
         // searched sum exceeds the upper bound of Integers
         if (sumOfDigitsDoubled > 82) return -1;

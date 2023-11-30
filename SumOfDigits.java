@@ -41,7 +41,7 @@ public class SumOfDigits {
     static int generateCandidate(int currentNumber) {
         int sumOfDigitsDoubled = sumOfDigits(currentNumber) * 2;
 
-        // searched sum exceeds the upper bound limits of Integers
+        // searched sum exceeds the upper bound of Integers
         if (sumOfDigitsDoubled > 82) return -1;
 
         return generateClosestCandidate(currentNumber, sumOfDigitsDoubled);

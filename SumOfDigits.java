@@ -25,9 +25,11 @@ public class SumOfDigits {
         return Duration.between(start, Instant.now()).toMillis();
     }
 
+    
     private static void startTimeCounter() {
         start = Instant.now();
     }
+
 
     private static void generateConsoleInfo(int currentNumber, int sumOfDigits, int numberFound, long timeElapsed) {
         if (numberFound > 0)
@@ -37,6 +39,7 @@ public class SumOfDigits {
             System.out.println("Current number: " + currentNumber + " Sum of its digits: "
                     + sumOfDigits + " | No number found in the interval | Elapsed time: " + timeElapsed + " milliseconds");
     }
+
 
     static int generateCandidate(int currentNumber) {
         int sumOfDigitsDoubled = sumOfDigits(currentNumber) * 2;

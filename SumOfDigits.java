@@ -24,9 +24,11 @@ public class SumOfDigits {
     private static long getTimeElapsed() {
         return Duration.between(start, Instant.now()).toMillis();
     }
+
     private static void startTimeCounter() {
         start = Instant.now();
     }
+
     private static void generateConsoleInfo(int currentNumber, int sumOfDigits, int numberFound, long timeElapsed) {
         if (numberFound > 0)
             System.out.println("Current number: " + currentNumber + " Sum of its digits: "
@@ -36,11 +38,11 @@ public class SumOfDigits {
                     + sumOfDigits + " | No number found in the interval | Elapsed time: " + timeElapsed + " milliseconds");
     }
 
-    static int generateCandidate (int currentNumber) {
+    static int generateCandidate(int currentNumber) {
         int sumOfDigitsDoubled = sumOfDigits(currentNumber) * 2;
 
-        // this searched sum exceeds the upper bound limits of Integers
-        if (sumOfDigitsDoubled > 82)  return -1;
+        // searched sum exceeds the upper bound limits of Integers
+        if (sumOfDigitsDoubled > 82) return -1;
 
         return generateClosestCandidate(currentNumber, sumOfDigitsDoubled);
     }
@@ -55,7 +57,7 @@ public class SumOfDigits {
             nextCandidate += (difference * 9);
         }
 
-        while (sumOfDigits(nextCandidate) != sumOfDigitsSearched  || (currentNumber >= nextCandidate))
+        while (sumOfDigits(nextCandidate) != sumOfDigitsSearched || (currentNumber >= nextCandidate))
             nextCandidate += 9;
 
         return nextCandidate;

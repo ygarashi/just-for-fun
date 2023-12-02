@@ -5,20 +5,20 @@ import java.time.Instant;
 import java.util.*;
 
 public class SumOfDigits {
-    private static final int LIST_SIZE = Integer.MAX_VALUE;
+    private static final int LIST_SIZE = Integer.MAX_VALUE; 
     private static final int SET_OF_TESTS = 500;
     private static final short SUM_MULTIPLIER_FACTOR = 2;
     private static Instant start;
 
     public static void main(String[] args) {
 
-        for (int tests = 0; tests <= SET_OF_TESTS; tests++) {
+        for (int currentTest = 1; currentTest <= SET_OF_TESTS; currentTest++) {
             startTimeCounter();
 
             int currentNumber = (int) (Math.random() * LIST_SIZE);
             int numberFound = generateCandidate(currentNumber);
 
-            generateConsoleInfo(currentNumber, sumOfDigits(currentNumber), numberFound, getTimeElapsed());
+            generateConsoleInfo(currentTest, currentNumber, sumOfDigits(currentNumber), numberFound, getTimeElapsed());
         }
     }
 
@@ -26,29 +26,27 @@ public class SumOfDigits {
         return Duration.between(start, Instant.now()).toMillis();
     }
 
-    
     private static void startTimeCounter() {
         start = Instant.now();
     }
-
-
-    private static void generateConsoleInfo(int currentNumber, int sumOfDigits, int numberFound, long timeElapsed) {
-        if (numberFound > 0)
-            System.out.println("Current number: " + currentNumber + " Sum of its digits: "
+    
+    private static void generateConsoleInfo(int currentTest, int currentNumber, int sumOfDigits, int numberFound, long timeElapsed) {
+        
+        if (validateRange(numberFound))
+            System.out.println(currentTest + ". Current number: " + currentNumber + " Sum of its digits: "
                     + sumOfDigits + " | Number found: " + numberFound + " | Elapsed time: " + timeElapsed + " milliseconds");
         else
-            System.out.println("Current number: " + currentNumber + " Sum of its digits: "
+            System.out.println(currentTest + ". Current number: " + currentNumber + " Sum of its digits: "
                     + sumOfDigits + " | No number found in the interval | Elapsed time: " + timeElapsed + " milliseconds");
     }
 
-
     static int generateCandidate(int currentNumber) {
-        int sumOfDigitsDoubled = sumOfDigits(currentNumber) * SUM_MULTIPLIER_FACTOR;
+        int sumOfDigits = sumOfDigits(currentNumber) * SUM_MULTIPLIER_FACTOR;
 
         // searched sum exceeds the upper bound of Integers
-        if (sumOfDigitsDoubled > 82) return -1;
+        if (sumOfDigits > 82) return -1;
 
-        return generateClosestCandidate(currentNumber, sumOfDigitsDoubled);
+        return generateClosestCandidate(currentNumber, sumOfDigits);
     }
 
     // Generates the closest candidate possible for searched sum
@@ -61,10 +59,17 @@ public class SumOfDigits {
             nextCandidate += (difference * 9);
         }
 
-        while (sumOfDigits(nextCandidate) != sumOfDigitsSearched || (currentNumber >= nextCandidate))
+        while ((sumOfDigits(nextCandidate) != sumOfDigitsSearched 
+                || (currentNumber >= nextCandidate)) 
+                && (validateRange(nextCandidate))) {
             nextCandidate += 9;
+        }      
 
         return nextCandidate;
+    }
+
+    private static boolean validateRange(int currentNumber) {
+        return (currentNumber > 0 && currentNumber <= Integer.MAX_VALUE);
     }
 
     // Generates the lowest number possible for searched sum

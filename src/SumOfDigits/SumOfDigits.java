@@ -1,8 +1,5 @@
-package easy.ex001_two_number_sum;
-
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
 
 public class SumOfDigits {
     private static final int LIST_SIZE = Integer.MAX_VALUE; 

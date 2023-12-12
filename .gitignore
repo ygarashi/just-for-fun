@@ -1,2 +1,7 @@
 ### VisualStudioCode ###
 .vscode/settings.json
+.idea/.gitignore
+.idea/just-for-fun.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml

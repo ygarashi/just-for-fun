@@ -1,45 +1,80 @@
 package TwoSumNum.test;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.util.HashSet;
+import TwoSumNum.TwoSumNum;
+import util.Util;
+
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
-import TwoSumNum.TwoSumNum;
-
 public class TwoSumNumTest {
 
     @Test
-    public void emptyInputArray() {
-        TwoSumNum twoSumNum = new TwoSumNum();
-        int[] inputExpected = new int[]{};
-        assertArrayEquals(inputExpected, twoSumNum.getInputArray());
+    public void inputArrayNotNull() {
+        TwoSumNum twoSumNum = buildTwoSumNum(0);
+        assertNotNull(twoSumNum.inputArray);
     }
     
     @Test
-    public void singleItemInputArray() {
-        TwoSumNum twoSumNum = new TwoSumNum();
-        int inputExpected = 1;
-        assertEquals(inputExpected, twoSumNum.getInputArray().length);
+    public void inputArrayNotEmpty() {
+        TwoSumNum twoSumNum = buildTwoSumNum(1);
+        assertTrue(twoSumNum.inputArray.length > 0);
+    }
+
+    @Test
+    public void inputArrayNotSingleItem() {
+        TwoSumNum twoSumNum = buildTwoSumNum(2);
+        assertTrue(twoSumNum.inputArray.length > 1);
+    }
+
+    @Test
+    public void inputArrayNonDistinctItems() {
+        TwoSumNum twoSumNum = buildTwoSumNum(5);
+
+        Set<Integer> distinctItems = new LinkedHashSet<>();
+        for (int item : twoSumNum.inputArray) 
+            distinctItems.add(item);
+        
+        assertArrayEquals(twoSumNum.inputArray, distinctItems.stream().mapToInt(Integer::intValue).toArray());
+    }
+
+    @Test
+    public void testSearchTwoNumSumNaive(){
+        int[] inputArray = new int[]{3, 5, -4, 8, 11, 1, -1, 6};
+        int target = 10;
+        int[] expectedResult = new int[]{11, -1};
+        
+        TwoSumNum twoSumNum = new TwoSumNum(inputArray, target);
+
+        assertArrayEquals(expectedResult, twoSumNum.searchTwoNumSumNaive());
     }
 
     /*@Test
-    public void nonDistinctSetOfInteger() {
-        TwoSumNum twoSumNum = new TwoSumNum();
-        Set<Integer> convertedInput = new HashSet<>();
-
-        for (int element : twoSumNum.getInputArray())
-            convertedInput.add(element)
+    public void testSearchTwoNumSum(){
+        int[] inputArray = new int[]{3, 5, -4, 8, 11, 1, -1, 6};
+        int target = 10;
+        int[] expectedResult = new int[]{11, -1};
+        int[] expectedResultInversed = new int[]{-1, 11};
         
-        assert
+        TwoSumNum twoSumNum = new TwoSumNum(inputArray, target);
+
+        int[] actual = twoSumNum.searchTwoNumSum();
+        assert(actual == expectedResult 
+                    || actual == expectedResultInversed);
     }*/
-    
+
+
+    private TwoSumNum buildTwoSumNum(int arraySize) {       
+        Util util = new Util();
+        return new TwoSumNum(util.generateDistinctRandomNumberArray(arraySize));
+    }
 
 }
-
 
 
 /*

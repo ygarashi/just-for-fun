@@ -1,40 +1,36 @@
 import java.time.Duration;
 import java.time.Instant;
 
+import util.Util;
+
 public class SumOfDigits {
     private static final int LIST_SIZE = Integer.MAX_VALUE; 
     private static final int SET_OF_TESTS = 500;
     private static final short SUM_MULTIPLIER_FACTOR = 2;
-    private static Instant start;
 
     public static void main(String[] args) {
 
         for (int currentTest = 1; currentTest <= SET_OF_TESTS; currentTest++) {
-            startTimeCounter();
+            Util util = new Util(); 
+            util.startTimeCounter();
 
             int currentNumber = (int) (Math.random() * LIST_SIZE);
             int numberFound = generateCandidate(currentNumber);
 
-            generateConsoleInfo(currentTest, currentNumber, sumOfDigits(currentNumber), numberFound, getTimeElapsed());
+            generateConsoleInfo(currentTest, currentNumber, sumOfDigits(currentNumber), numberFound, util.getTimeElapsed());
         }
     }
 
-    private static long getTimeElapsed() {
-        return Duration.between(start, Instant.now()).toMillis();
-    }
 
-    private static void startTimeCounter() {
-        start = Instant.now();
-    }
     
-    private static void generateConsoleInfo(int currentTest, int currentNumber, int sumOfDigits, int numberFound, long timeElapsed) {
+    private static void generateConsoleInfo(int currentTest, int currentNumber, int sumOfDigits, int numberFound, String timeElapsed) {
         
         if (validateRange(numberFound))
             System.out.println(currentTest + ". Current number: " + currentNumber + " Sum of its digits: "
-                    + sumOfDigits + " | Number found: " + numberFound + " | Elapsed time: " + timeElapsed + " milliseconds");
+                    + sumOfDigits + " | Number found: " + numberFound + " | " + timeElapsed );
         else
             System.out.println(currentTest + ". Current number: " + currentNumber + " Sum of its digits: "
-                    + sumOfDigits + " | No number found in the interval | Elapsed time: " + timeElapsed + " milliseconds");
+                    + sumOfDigits + " | No number found in the interval | " + timeElapsed);
     }
 
     static int generateCandidate(int currentNumber) {

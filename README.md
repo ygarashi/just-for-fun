@@ -1,1 +1,1 @@
-## Some coding problems I enjoy to solve
+## Some coding challenges I enjoy to take on
